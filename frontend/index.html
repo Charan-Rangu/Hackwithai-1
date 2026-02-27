@@ -1,0 +1,730 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hygiene Compliance Auditor</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <!-- Chart.js for Data Visualization -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+    <div class="app-container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <a href="#" data-target="welcome-module" class="logo-link">
+                    <h2>Hygiene Auditor</h2>
+                </a>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="#" class="nav-item active" data-target="welcome-module">
+                    <span class="icon">🏠</span> Home
+                </a>
+                <a href="#" class="nav-item admin-only" data-target="admin-overview-module">
+                    <span class="icon">🏢</span> Admin Overview
+                </a>
+                <a href="#" class="nav-item admin-only" data-target="live-monitoring-module">
+                    <span class="icon">👁️</span> Live Monitoring
+                </a>
+                <a href="#" class="nav-item hotel-only" data-target="dashboard-module">
+                    <span class="icon">📊</span> Dashboard
+                </a>
+                <a href="#" class="nav-item hotel-only" data-target="image-module">
+                    <span class="icon">📸</span> Image Audit
+                </a>
+                <a href="#" class="nav-item hotel-only" data-target="video-module">
+                    <span class="icon">🎥</span> Video Audit
+                </a>
+                <a href="#" class="nav-item" data-target="batch-module">
+                    <span class="icon">📁</span> Batch Reports
+                </a>
+                <a href="#" class="nav-item" data-target="regulator-module">
+                    <span class="icon">⚙️</span> Violation Regulator
+                </a>
+                <a href="#" class="nav-item hotel-only" data-target="feedback-module">
+                    <span class="icon">💬</span> Feedback
+                </a>
+                <a href="#" class="nav-item" id="logoutBtn">
+                    <span class="icon">🚪</span> Logout
+                </a>
+            </nav>
+            <div class="sidebar-footer">
+                <div class="live-indicator">
+                    <span class="pulse-dot"></span>
+                    <span class="live-text">Live Monitoring Active</span>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Mobile Top Bar -->
+        <header class="mobile-header">
+            <button class="hamburger" id="hamburgerBtn">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <div class="mobile-logo">Hygiene Auditor</div>
+            <div class="pulse-dot"></div>
+        </header>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+
+            <!-- 0. Welcome Module (Landing) -->
+            <section id="welcome-module" class="module active">
+                <div class="welcome-container">
+                    <header class="welcome-header">
+                        <h1>Welcome to <span class="accent">Hygiene Auditor</span></h1>
+                        <p>Select a module to get started with your compliance check.</p>
+                    </header>
+
+                    <div class="welcome-grid">
+                        <div class="welcome-card" data-target="dashboard-module">
+                            <div class="welcome-card-icon">📊</div>
+                            <h3>Dashboard</h3>
+                            <p>Overview of compliance metrics, trends, and risk assessments.</p>
+                            <span class="card-link">Enter Dashboard &rarr;</span>
+                        </div>
+                        <div class="welcome-card" data-target="image-module">
+                            <div class="welcome-card-icon">📸</div>
+                            <h3>Image Audit</h3>
+                            <p>Fast AI-powered analysis of facility photos and PPE compliance.</p>
+                            <span class="card-link">Start Image Audit &rarr;</span>
+                        </div>
+                        <div class="welcome-card" data-target="video-module">
+                            <div class="welcome-card-icon">🎥</div>
+                            <h3>Video Audit</h3>
+                            <p>Frame-by-frame analysis of continuous footage for dynamic auditing.</p>
+                            <span class="card-link">Process Video &rarr;</span>
+                        </div>
+                        <div class="welcome-card" data-target="batch-module">
+                            <div class="welcome-card-icon">📁</div>
+                            <h3>Batch Reports</h3>
+                            <p>History of all previous audits with detailed logs and risk tags.</p>
+                            <span class="card-link">View Reports &rarr;</span>
+                        </div>
+                        <div class="welcome-card" data-target="feedback-module">
+                            <div class="welcome-card-icon">💬</div>
+                            <h3>Feedback & Support</h3>
+                            <p>Share your experience or report an issue with the system.</p>
+                            <span class="card-link">Send Feedback &rarr;</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 1. Dashboard Module -->
+            <section id="dashboard-module" class="module">
+                <header class="module-header">
+                    <h1>Dashboard Overview</h1>
+                    <p>Real-time hygiene compliance metrics and alerts.</p>
+                </header>
+
+                <div class="kpi-grid">
+                    <div class="card kpi-card">
+                        <div class="kpi-info">
+                            <span class="kpi-label">Total Audits Today</span>
+                            <h2 class="kpi-value" data-target="158">0</h2>
+                        </div>
+                        <div class="kpi-icon blue">📊</div>
+                    </div>
+                    <div class="card kpi-card">
+                        <div class="kpi-info">
+                            <span class="kpi-label">Avg. Compliance Score</span>
+                            <h2 class="kpi-value" data-target="86">0</h2>
+                            <span class="kpi-suffix">%</span>
+                        </div>
+                        <div class="kpi-icon green">🎯</div>
+                    </div>
+                    <div class="card kpi-card">
+                        <div class="kpi-info">
+                            <span class="kpi-label">High Risk Alerts</span>
+                            <h2 class="kpi-value text-danger" data-target="12">0</h2>
+                        </div>
+                        <div class="kpi-icon red">⚠️</div>
+                    </div>
+                    <div class="card kpi-card">
+                        <div class="kpi-info">
+                            <span class="kpi-label">Fleet Compliance</span>
+                            <h2 class="kpi-value text-success" data-target="94">0</h2>
+                            <span class="kpi-suffix">%</span>
+                        </div>
+                        <div class="kpi-icon cyan">🚀</div>
+                    </div>
+                </div>
+
+                <div class="dashboard-charts-grid">
+                    <div class="card chart-container">
+                        <h3>Compliance Trend (Last 7 Days)</h3>
+                        <canvas id="complianceChart"></canvas>
+                    </div>
+                    <div class="card chart-container">
+                        <h3>Risk Distribution</h3>
+                        <div class="donut-wrapper">
+                            <canvas id="riskDistributionChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="dashboard-recent-alerts">
+                    <div class="card glass-card border-danger-glow">
+                        <div class="alert-header">
+                            <span class="badge risk-high">CRITICAL ALERT</span>
+                            <span class="alert-time">2 mins ago</span>
+                        </div>
+                        <h3>Mandatory Mask Violation - Zone B</h3>
+                        <p>AI detected personnel without grade-1 surgical masks in the preparation area.</p>
+                        <div class="alert-actions">
+                            <button class="btn btn-sm btn-danger">Initiate Protocol</button>
+                            <button class="btn btn-sm btn-outline">Dismiss</button>
+                        </div>
+                    </div>
+                </div>
+
+            </section>
+
+            <!-- Admin Overview Module -->
+            <section id="admin-overview-module" class="module">
+                <header class="module-header">
+                    <h1>Enterprise Compliance Overview</h1>
+                    <p>Aggregated data across all listed restaurants.</p>
+                </header>
+
+                <div class="kpi-grid">
+                    <div class="card kpi-card">
+                        <div class="kpi-info">
+                            <span class="kpi-label">Active Restaurants</span>
+                            <h2 class="kpi-value" data-target="42">0</h2>
+                        </div>
+                        <div class="kpi-icon blue">🏢</div>
+                    </div>
+                    <div class="card kpi-card">
+                        <div class="kpi-info">
+                            <span class="kpi-label">Avg. Fleet Score</span>
+                            <h2 class="kpi-value" data-target="82">0</h2>
+                            <span class="kpi-suffix">%</span>
+                        </div>
+                        <div class="kpi-icon green">📈</div>
+                    </div>
+                    <div class="card kpi-card">
+                        <div class="kpi-info">
+                            <span class="kpi-label">Pending Violations</span>
+                            <h2 class="kpi-value text-danger" data-target="28">0</h2>
+                        </div>
+                        <div class="kpi-icon red">🚨</div>
+                    </div>
+                    <div class="card kpi-card">
+                        <div class="kpi-info">
+                            <span class="kpi-label">Inspections Completed</span>
+                            <h2 class="kpi-value text-success" data-target="1104">0</h2>
+                        </div>
+                        <div class="kpi-icon cyan">✅</div>
+                    </div>
+                </div>
+
+                <div class="card table-card">
+                    <h3>Restaurant Risk Rankings</h3>
+                    <table class="reports-table">
+                        <thead>
+                            <tr>
+                                <th>Restaurant Name</th>
+                                <th>Last Audit</th>
+                                <th>Score</th>
+                                <th>Risk Level</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Hygiene Auditor Kitchen</td>
+                                <td>2023-11-01</td>
+                                <td>86%</td>
+                                <td><span class="badge-risk risk-low">LOW</span></td>
+                                <td><span class="status-check">✓ Active</span></td>
+                            </tr>
+                            <tr>
+                                <td>Ocean View Dining</td>
+                                <td>2023-11-01</td>
+                                <td>58%</td>
+                                <td><span class="badge-risk risk-high">HIGH</span></td>
+                                <td><span class="status-violation">✗ Action Req.</span></td>
+                            </tr>
+                            <tr>
+                                <td>Central Mall Food Court</td>
+                                <td>2023-10-31</td>
+                                <td>72%</td>
+                                <td><span class="badge-risk risk-medium">MEDIUM</span></td>
+                                <td><span class="status-check">✓ Monitored</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Live Monitoring Module -->
+            <section id="live-monitoring-module" class="module">
+                <header class="module-header">
+                    <h1>Live Fleet Monitoring</h1>
+                    <p>Real-time surveillance from all registered facility cameras.</p>
+                </header>
+
+                <div class="live-monitoring-layout">
+                    <div class="card live-grid-card">
+                        <h3>CCTV Live Feeds</h3>
+                        <div class="cctv-grid-container">
+                            <img src="cctv_grid_mockup_1772208746492.png" alt="CCTV Grid" class="cctv-grid-img">
+                        </div>
+                    </div>
+
+                    <div class="card admin-actions-sidebar">
+                        <h3>Quick Actions</h3>
+                        <p class="text-muted mb-3" style="font-size: 0.85rem">Selected Feed: Kitchen B (Ocean View)</p>
+                        <div class="action-buttons-stack">
+                            <button class="btn btn-primary btn-block mb-3"
+                                onclick="showToast('Protocol Initiated: Manager Notified', 'success')">
+                                🔔 Notify Local Manager
+                            </button>
+                            <button class="btn btn-danger btn-block mb-3"
+                                onclick="showToast('Warning: Violations Logged', 'error')">
+                                ⚠️ Issue Official Warning
+                            </button>
+                            <button class="btn btn-outline btn-block"
+                                onclick="showToast('Audit report scheduled', 'info')">
+                                📝 Schedule On-site Audit
+                            </button>
+                        </div>
+                        <div class="recent-live-alerts mt-4">
+                            <h4>Recent Stream Alerts</h4>
+                            <div class="mini-alert-item red">
+                                <span>2m ago</span>
+                                <p>Mask Violation detected in Kitchen B</p>
+                            </div>
+                            <div class="mini-alert-item green">
+                                <span>5m ago</span>
+                                <p>Handwashing protocol verified in Kitchen A</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 2. Image Audit Module -->
+            <section id="image-module" class="module">
+                <header class="module-header">
+                    <h1>Image Audit</h1>
+                    <p>Upload a photo of the facility or personnel to instantly analyze compliance.</p>
+                </header>
+
+                <div class="analysis-split-layout">
+                    <!-- Left Column: Upload & Preview -->
+                    <div class="analysis-main">
+                        <div class="card upload-card">
+                            <form id="imageUploadForm">
+                                <div class="upload-area" id="imageDropZone"
+                                    onclick="document.getElementById('imageInput').click()">
+                                    <span class="upload-icon">📸</span>
+                                    <h3>Drag & Drop or Click to Upload Image</h3>
+                                    <p class="upload-hint">Supports JPG, PNG, WEBP (Max 5MB)</p>
+                                    <input type="file" id="imageInput" name="image" accept="image/*" required>
+                                    <div id="imageNameDisplay" class="file-name"></div>
+                                </div>
+                                <button type="submit" class="btn btn-primary btn-block" id="analyzeImageBtn">
+                                    <span class="btn-text">Execute AI Audit</span>
+                                    <div class="spinner" id="imageSpinner"></div>
+                                </button>
+                            </form>
+                            <div id="imageErrorMsg" class="error-msg"></div>
+                        </div>
+
+                        <div id="imagePreviewContainer" class="card preview-card hidden">
+                            <h3>Inspection Feed</h3>
+                            <div class="preview-wrapper">
+                                <img id="imagePreview" src="" alt="Preview">
+                                <canvas id="imageOverlay" class="detection-overlay"></canvas>
+                                <p id="imageCaption" class="image-caption mt-2"
+                                    style="color: rgba(255,255,255,0.7); font-style: italic; font-size: 0.9rem;"></p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right Column: AI Metrics -->
+                    <div class="analysis-sidebar">
+                        <div id="imageResultSection" class="hidden">
+                            <div class="card score-meter-card">
+                                <h3>AI Compliance Score</h3>
+                                <div class="gauge-container">
+                                    <div class="gauge-ring">
+                                        <div id="imageComplianceScore" class="score-value">--</div>
+                                    </div>
+                                </div>
+                                <div id="imageRiskBadge" class="risk-badge">--</div>
+                            </div>
+
+                            <div class="card metrics-card">
+                                <div class="detection-box">
+                                    <h3>PPE Detection Confidence</h3>
+                                    <div class="confidence-list" id="ppeList">
+                                        <!-- Confidence bars injected here -->
+                                    </div>
+                                </div>
+
+                                <div class="violations-box mt-4">
+                                    <h3>Critical Violations</h3>
+                                    <ul class="violations-list-modern" id="imageViolationsList">
+                                        <!-- Violations injected here -->
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="card recommendations-card">
+                                <h3>Smart Recommendations</h3>
+                                <ul class="recommendation-list" id="imageRecommendations">
+                                    <li>Waiting for analysis...</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 3. Video Audit Module -->
+            <section id="video-module" class="module">
+                <header class="module-header">
+                    <h1>Video Audit</h1>
+                    <p>Upload CCTV footage or continuous video feed for frame-by-frame analysis.</p>
+                </header>
+
+                <div class="analysis-split-layout">
+                    <!-- Left Column: Upload & Progress -->
+                    <div class="analysis-main">
+                        <div class="card upload-card">
+                            <form id="videoUploadForm">
+                                <div class="upload-area" id="videoDropZone"
+                                    onclick="document.getElementById('videoInput').click()">
+                                    <span class="upload-icon">🎥</span>
+                                    <h3>Drag & Drop or Click to Upload Video</h3>
+                                    <p class="upload-hint">Supports MP4, AVI, MOV (Max 50MB)</p>
+                                    <input type="file" id="videoInput" name="video" accept="video/*" required>
+                                    <div id="videoNameDisplay" class="file-name"></div>
+                                </div>
+                                <button type="submit" class="btn btn-primary btn-block" id="analyzeVideoBtn">
+                                    <span class="btn-text">Initiate Stream Analysis</span>
+                                    <div class="spinner" id="videoSpinner"></div>
+                                </button>
+                            </form>
+                            <div id="videoErrorMsg" class="error-msg"></div>
+                        </div>
+
+                        <div id="videoProgressSection" class="progress-section hidden card">
+                            <h3>Analyzing Frames...</h3>
+                            <div class="progress-bar-container">
+                                <div class="progress-bar" id="videoProgressBar" style="width: 0%"></div>
+                            </div>
+                            <div class="progress-stats">
+                                <span id="videoProgressText">0% Complete</span>
+                                <span id="videoFramesAnalyzed">0 / 0 frames</span>
+                            </div>
+                        </div>
+
+                        <div id="videoPreviewContainer" class="card preview-card hidden">
+                            <h3>Live Frame Inspection</h3>
+                            <div class="preview-wrapper">
+                                <video id="videoPreview" class="hidden"></video>
+                                <canvas id="videoOverlay" class="detection-overlay"></canvas>
+                                <div id="videoPlaceholder" class="video-placeholder">
+                                    <span>Stream Analysis in Progress...</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right Column: AI Metrics -->
+                    <div class="analysis-sidebar">
+                        <div id="videoResultSection" class="hidden">
+                            <div class="card score-meter-card">
+                                <h3>Average Compliance</h3>
+                                <div class="gauge-container">
+                                    <div class="gauge-ring">
+                                        <div id="videoComplianceScore" class="score-value">--</div>
+                                    </div>
+                                </div>
+                                <div class="stats-mini-grid mt-3">
+                                    <div class="stat-mini">
+                                        <span class="label">Total Frames</span>
+                                        <span class="value" id="totalFramesVal">--</span>
+                                    </div>
+                                    <div class="stat-mini">
+                                        <span class="label">Incidents</span>
+                                        <span class="value text-danger" id="criticalIncidentsVal">--</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="card metrics-card">
+                                <div class="violations-box">
+                                    <h3>Incident Timeline</h3>
+                                    <ul class="violations-list-modern" id="videoViolationsList">
+                                        <!-- Violations injected here -->
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="card recommendations-card">
+                                <h3>Corrective Actions</h3>
+                                <ul class="recommendation-list" id="videoRecommendations">
+                                    <li>Waiting for analysis...</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 4. Batch Reports Module -->
+            <section id="batch-module" class="module">
+                <header class="module-header">
+                    <h1>Batch Reports</h1>
+                    <p>Review and filter historical audit data.</p>
+                </header>
+                <div class="card search-filter-card">
+                    <div class="filter-row">
+                        <div class="search-box">
+                            <input type="text" id="reportSearch" placeholder="Search by ID or Date...">
+                        </div>
+                        <select id="riskFilter" class="form-input">
+                            <option value="all">All Risk Levels</option>
+                            <option value="high">High Risk</option>
+                            <option value="medium">Medium Risk</option>
+                            <option value="low">Low Risk</option>
+                        </select>
+                        <select id="typeFilter" class="form-input">
+                            <option value="all">All Types</option>
+                            <option value="Image">Image</option>
+                            <option value="Video">Video</option>
+                        </select>
+                        <button class="btn btn-outline" id="clearFilters">Clear</button>
+                    </div>
+                </div>
+                <div class="card table-card">
+                    <table class="reports-table">
+                        <thead>
+                            <tr>
+                                <th>Report ID</th>
+                                <th>Date/Time</th>
+                                <th>Audit Type</th>
+                                <th>Score</th>
+                                <th>Risk Level</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="batchReportsTableBody">
+                            <!-- Data injected by JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+            <!-- 5. Feedback Module -->
+            <section id="feedback-module" class="module">
+                <header class="module-header">
+                    <h1>Feedback & Support</h1>
+                    <p>Share your experience to help us improve the hygiene audit system.</p>
+                </header>
+                <div class="card settings-card">
+                    <form id="feedbackForm">
+                        <div class="settings-group">
+                            <h3>Submit Your Feedback</h3>
+                            <div class="setting-item">
+                                <label for="feedbackSubject">Subject</label>
+                                <input type="text" id="feedbackSubject" class="form-input"
+                                    placeholder="e.g., Feature Request, Bug Report" required>
+                            </div>
+                            <div class="setting-item">
+                                <label for="feedbackBody">Feedback Message</label>
+                                <textarea id="feedbackBody" class="form-input" placeholder="Your message..."
+                                    required></textarea>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Submit Feedback</button>
+                    </form>
+                </div>
+            </section>
+
+            <!-- 7. Game & Training Module -->
+            <section id="training-module" class="module">
+                <header class="module-header">
+                    <h1>Hygiene Training & Engagement</h1>
+                    <p>Boost your compliance scores through interactive training module.</p>
+                </header>
+
+                <div class="training-stats-row mb-4">
+                    <div class="card streak-card">
+                        <div class="streak-icon">🔥</div>
+                        <div class="streak-info">
+                            <h2 id="streakCount">0 Day</h2>
+                            <p>Hygiene Streak</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="training-grid">
+                    <!-- Module 1: Spot the Violation -->
+                    <div class="card training-card game-module">
+                        <div class="training-card-header">
+                            <span class="badge">Module 1</span>
+                            <h3>Spot the Violation Game</h3>
+                        </div>
+                        <div id="gameStartScreen">
+                            <p>Identify as many violations as possible in 60 seconds.</p>
+                            <button class="btn btn-primary mt-3" id="startGameBtn">Start Mission</button>
+                        </div>
+                        <div id="gameActiveScreen" class="hidden">
+                            <div class="game-meta">
+                                <div class="timer-bar">
+                                    <div id="gameTimer" style="width: 100%"></div>
+                                </div>
+                                <div class="game-score">Score: <span id="currentScore">0</span></div>
+                            </div>
+                            <div class="game-canvas-wrapper">
+                                <img src="kitchen_scene_mock.jpg" id="gameImage" alt="Spot violations">
+                                <div id="gameOverlay"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Module 2: Daily Quiz -->
+                    <div class="card training-card quiz-module">
+                        <div class="training-card-header">
+                            <span class="badge">Module 2</span>
+                            <h3>Daily Compliance Quiz</h3>
+                        </div>
+                        <div id="quizContainer">
+                            <p id="quizQuestion">Loading daily question...</p>
+                            <div id="quizOptions" class="mt-3"></div>
+                            <div id="quizFeedback" class="mt-3 hidden"></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 6. Violation Regulator Module -->
+            <section id="regulator-module" class="module">
+                <header class="module-header">
+                    <h1>Violation Regulator</h1>
+                    <p>Configure system thresholds, enforcement policies, and alert settings.</p>
+                </header>
+
+                <div class="card settings-card">
+                    <form id="settingsForm">
+                        <div class="settings-group">
+                            <h3>Compliance Thresholds</h3>
+                            <div class="setting-item">
+                                <label for="thresholdSlider">Minimum Acceptable Score: <span
+                                        id="thresholdValueDisplay">80</span>%</label>
+                                <input type="range" id="thresholdSlider" min="0" max="100" value="80" class="slider">
+                                <p class="setting-desc">Scores below this value will trigger high-risk alerts.</p>
+                            </div>
+                        </div>
+
+                        <div class="settings-group">
+                            <h3>Enforcement Policies</h3>
+                            <div class="setting-item toggle-item">
+                                <label class="toggle-label" for="enableMasks">
+                                    <span class="toggle-text">Strict Mask Enforcement</span>
+                                    <p class="setting-desc">Treat missing masks as a critical violation</p>
+                                </label>
+                                <label class="switch">
+                                    <input type="checkbox" id="enableMasks" checked>
+                                    <span class="slider-toggle round"></span>
+                                </label>
+                            </div>
+
+                            <div class="setting-item toggle-item">
+                                <label class="toggle-label" for="enableAprons">
+                                    <span class="toggle-text">Apron Requirement</span>
+                                    <p class="setting-desc">Mandate aprons for all personnel detected in processing
+                                        areas</p>
+                                </label>
+                                <label class="switch">
+                                    <input type="checkbox" id="enableAprons" checked>
+                                    <span class="slider-toggle round"></span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="settings-group">
+                            <h3>Notifications</h3>
+                            <div class="setting-item toggle-item">
+                                <label class="toggle-label" for="enableEmails">
+                                    <span class="toggle-text">Email Alerts</span>
+                                    <p class="setting-desc">Automatically email supervisors upon critical violations</p>
+                                </label>
+                                <label class="switch">
+                                    <input type="checkbox" id="enableEmails" checked>
+                                    <span class="slider-toggle round"></span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary" id="saveSettingsBtn">Save Configuration</button>
+                    </form>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <!-- Toast Notification Container -->
+    <div id="toastContainer" class="toast-container"></div>
+
+    <!-- Report Details Modal -->
+    <div id="reportDetailsModal" class="modal-overlay hidden">
+        <div class="modal-container">
+            <div class="modal-header">
+                <h2 id="modalReportId">Report Details</h2>
+                <button class="close-modal" id="closeDetailsModal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="report-meta-grid">
+                    <div class="meta-item">
+                        <span class="label">Audit Date</span>
+                        <span class="value" id="modalReportDate">--</span>
+                    </div>
+                    <div class="meta-item">
+                        <span class="label">Compliance Score</span>
+                        <span class="valueHighlight" id="modalReportScore">--</span>
+                    </div>
+                    <div class="meta-item">
+                        <span class="label">Risk Level</span>
+                        <span class="value" id="modalReportRisk">--</span>
+                    </div>
+                </div>
+                <h3>Violation Breakdown</h3>
+                <div class="table-container">
+                    <table class="details-table">
+                        <thead>
+                            <tr>
+                                <th>Category</th>
+                                <th>Violation</th>
+                                <th>Severity</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="modalViolationsTableBody">
+                            <!-- Injected by JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
